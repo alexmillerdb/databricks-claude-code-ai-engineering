@@ -1,0 +1,125 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "databricks-claude-code-ai-engineering"
+version = "0.1.0"
+description = "AI Engineering project with Databricks and Claude integration"
+readme = "README.md"
+authors = [
+    {name = "Alex Miller", email = "alex.miller@example.com"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "mlflow[databricks]>=3.1",
+    "databricks-agents",
+    "openai",
+    "python-dotenv",
+    "databricks-connect",
+    "databricks-vectorsearch",
+    "databricks-sdk",
+    "databricks-langchain",
+    "langgraph==0.3.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "mypy",
+    "flake8",
+    "pre-commit",
+    "jupyter",
+    "ipykernel",
+]
+test = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "pytest-mock",
+    "httpx",  # for testing API calls
+]
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+
+[project.urls]
+Homepage = "https://github.com/alex.miller/databricks-claude-code-ai-engineering"
+Repository = "https://github.com/alex.miller/databricks-claude-code-ai-engineering"
+Documentation = "https://github.com/alex.miller/databricks-claude-code-ai-engineering/blob/main/README.md"
+Issues = "https://github.com/alex.miller/databricks-claude-code-ai-engineering/issues"
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["databricks_claude"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-fail-under=80",
+]
+testpaths = [
+    "tests",
+]
+python_files = [
+    "test_*.py",
+    "*_test.py",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

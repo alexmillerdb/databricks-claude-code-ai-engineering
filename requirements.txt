@@ -1,0 +1,10 @@
+mlflow[databricks]>=3.1
+databricks-agents
+openai
+python-dotenv
+databricks-connect>=16.0.0
+databricks-vectorsearch
+databricks-sdk
+databricks-langchain 
+uv 
+langgraph==0.3.4
