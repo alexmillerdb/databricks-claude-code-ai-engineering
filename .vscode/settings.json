@@ -18,12 +18,6 @@
   "jupyter.interactiveWindow.cellMarker.codeRegex": "^# COMMAND ----------|^# Databricks notebook source|^(#\\s*%%|#\\s*\\<codecell\\>|#\\s*In\\[\\d*?\\]|#\\s*In\\[ \\])",
   "jupyter.interactiveWindow.cellMarker.default": "# COMMAND ----------",
   "jupyter.notebookFileRoot": "${workspaceFolder}",
-  "jupyter.kernels.filter": [
-    {
-      "path": "${workspaceFolder}/.venv/bin/python",
-      "displayName": "Databricks Connect Python"
-    }
-  ],
   
   // Environment Variables for Integrated Terminal
   "terminal.integrated.env.osx": {
@@ -49,7 +43,7 @@
   // Editor Configuration
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
   
   // Git Configuration

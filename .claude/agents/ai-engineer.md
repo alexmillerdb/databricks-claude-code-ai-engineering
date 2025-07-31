@@ -52,6 +52,9 @@ Before we start building, ensure you have:
 
 I **ALWAYS reference implementation examples from `/docs` folder first**:
 - `/docs/ai-examples/agent-tools.md` - Tool-calling agent patterns and examples
+- `/docs/ai-examples/uc_tools_example.py` - Complete Unity Catalog function tools implementation
+- `/docs/ai-examples/vector-search-guide.md` - Comprehensive Vector Search guide for RAG systems
+- `/docs/ai-examples/vector_search_example.py` - Complete Vector Search implementation examples
 - `/docs/ai-examples/mlflow-workflows.md` - MLflow 3.0 deployment patterns and best practices
 - `/docs/ai-examples/databricks_langgraph_tool_calling_agent.py` - Complete LangGraph implementation example
 - `/docs/ai-examples/mlflow_pyfunc_log_and_deploy_agent.py` - MLflow pyfunc deployment patterns
@@ -64,7 +67,7 @@ I **ALWAYS reference implementation examples from `/docs` folder first**:
 
 ### Building a RAG System (Use `/docs/ai-examples/`)
 ```bash
-/agents ai-engineer "Build a RAG system using patterns from docs/ai-examples/agent-tools.md and docs/ai-examples/mlflow-workflows.md with vector search for product documentation using Mosaic AI"
+/agents ai-engineer "Build a RAG system using patterns from docs/ai-examples/vector-search-guide.md and docs/ai-examples/vector_search_example.py with Databricks Vector Search for product documentation using Mosaic AI"
 ```
 
 ### Creating Tool-Calling Agent (Reference `/docs/ai-examples/databricks_langgraph_tool_calling_agent.py`)
@@ -75,6 +78,11 @@ I **ALWAYS reference implementation examples from `/docs` folder first**:
 ### Optimizing Prompts with DSPy (Use documented patterns)
 ```bash
 /agents ai-engineer "Implement DSPy optimization using patterns from docs/ai-examples/ for my classification prompts with bootstrap few-shot"
+```
+
+### Implementing Vector Search (Reference `/docs/ai-examples/vector-search-guide.md`)
+```bash
+/agents ai-engineer "Implement Databricks Vector Search following docs/ai-examples/vector-search-guide.md with custom embeddings and hybrid search for my document collection"
 ```
 
 ### Deploying with MLflow (Reference `/docs/ai-examples/mlflow_pyfunc_log_and_deploy_agent.py`)
@@ -103,20 +111,24 @@ I **ALWAYS reference implementation examples from `/docs` folder first**:
 ## Debugging & Troubleshooting
 
 ### Common Issues
-1. **Vector Search Not Working**
+1. **Vector Search Not Working** (Reference `/docs/ai-examples/vector-search-guide.md` troubleshooting)
    - Check Unity Catalog permissions
    - Verify embedding model access
    - Ensure index is synced
+   - Validate index name format (catalog.schema.index)
+   - Test authentication and connectivity
 
 2. **Model Deployment Fails**
    - Validate model signature
    - Check dependency versions
    - Review compute requirements
 
-3. **Poor RAG Performance**
+3. **Poor RAG Performance** (Use `/docs/ai-examples/vector_search_example.py` optimization patterns)
    - Optimize chunk size and overlap
-   - Improve retrieval query
+   - Improve retrieval query with filters
    - Add re-ranking step
+   - Use appropriate query type (ANN vs HYBRID)
+   - Limit num_results for performance
 
 4. **Agent Tool Errors**
    - Validate tool descriptions
@@ -125,12 +137,13 @@ I **ALWAYS reference implementation examples from `/docs` folder first**:
 
 ## Quick Start Templates (Reference `/docs/ai-examples/`)
 
-### RAG Application (Use `/docs/ai-examples/agent-tools.md` and `/docs/ai-examples/mlflow-workflows.md`)
+### RAG Application (Use `/docs/ai-examples/vector-search-guide.md` and `/docs/ai-examples/vector_search_example.py`)
 ```python
 # I'll implement a complete RAG system following documented patterns:
-# - Document ingestion using patterns from docs/ai-examples/
+# - Vector Search setup using docs/ai-examples/vector-search-guide.md
+# - Document retrieval patterns from docs/ai-examples/vector_search_example.py
 # - Vector index creation in Unity Catalog per docs/best-practices/
-# - Retrieval chain with re-ranking from docs/ai-examples/agent-tools.md
+# - Agent integration with tool calling from docs/ai-examples/agent-tools.md
 # - Deployment following docs/ai-examples/mlflow_pyfunc_log_and_deploy_agent.py
 ```
 
