@@ -8,6 +8,7 @@ This project template provides specialized Claude Code sub-agents for building, 
 - **databricks-researcher**: Documentation and research specialist - use PROACTIVELY to find relevant documentation, API references, and best practices before implementation
 - **environment-manager**: Local IDE and Databricks environment setup with databricks-connect, Unity Catalog, and MLflow integration
 - **ai-engineer**: Custom GenAI model and application development using Mosaic AI Agent Framework, RAG systems, LangChain/LangGraph, and DSPy
+- **data-engineer**: Data engineering specialist for Databricks platform - builds production-grade data pipelines using Spark, SQL, Delta Lake, and Unity Catalog
 - **product-manager**: Requirements gathering, PRD creation, and feature prioritization for AI products
 
 ## Development Focus Areas
@@ -34,17 +35,22 @@ This project template provides specialized Claude Code sub-agents for building, 
 ### Sequential Workflows
 **New Project Setup:**
 ```
-databricks-researcher → environment-manager → ai-engineer → product-manager
+databricks-researcher → environment-manager → data-engineer → ai-engineer → product-manager
 ```
 
 **Feature Development:**
 ```
-databricks-researcher → product-manager → ai-engineer → (testing & debugging) → deployment
+databricks-researcher → product-manager → data-engineer → ai-engineer → (testing & debugging) → deployment
+```
+
+**Data Pipeline Development:**
+```
+databricks-researcher → data-engineer → (optimize & monitor) → ai-engineer (consume data)
 ```
 
 **Troubleshooting:**
 ```
-databricks-researcher → environment-manager → ai-engineer (debug & fix)
+databricks-researcher → environment-manager → data-engineer/ai-engineer (debug & fix)
 ```
 
 ### Parallel Execution
@@ -52,6 +58,7 @@ databricks-researcher → environment-manager → ai-engineer (debug & fix)
 ```
 databricks-researcher + ai-engineer (working simultaneously on research & implementation)
 product-manager + ai-engineer (requirements + technical implementation)
+data-engineer + ai-engineer (data pipeline development + AI model consumption)
 ```
 
 ## Development Standards
@@ -214,6 +221,18 @@ docs/
 /agents ai-engineer "Debug slow RAG performance using optimization patterns from docs/ai-examples/mlflow-workflows.md and optimize retrieval and generation pipeline"
 ```
 
+#### Building Data Pipelines for AI (Data + AI Integration)
+```bash
+# 1. Research data pipeline patterns
+/agents databricks-researcher "Research Delta Lake best practices and streaming patterns for AI workloads from docs"
+
+# 2. Build data infrastructure
+/agents data-engineer "Create medallion architecture with bronze/silver/gold layers for ML feature engineering"
+
+# 3. Integrate with AI systems
+/agents ai-engineer "Connect RAG system to the gold layer tables and implement incremental vector index updates"
+```
+
 ### Agent-Specific Usage Patterns
 
 #### Databricks Researcher
@@ -230,6 +249,11 @@ docs/
 - **Use for**: GenAI development using `/docs/ai-examples/` patterns, RAG systems, agent frameworks, deployment
 - **Best practice**: Reference `/docs/ai-examples/` for implementation patterns, combine with researcher for context
 - **Example**: `"Build a customer support agent using patterns from docs/ai-examples/agent-tools.md with Mosaic AI vector search and tool calling"`
+
+#### Data Engineer
+- **Use for**: Data pipeline development, ETL/ELT with Spark/SQL, Delta Lake architecture, streaming data, feature engineering
+- **Best practice**: Collaborate with AI engineer for data requirements, optimize for AI/ML workloads
+- **Example**: `"Build streaming pipeline for real-time feature engineering using Delta Lake and prepare data for vector indexing"`
 
 #### Product Manager
 - **Use for**: Requirements gathering using `/docs/best-practices/`, PRD creation, success metrics, stakeholder alignment
@@ -288,8 +312,9 @@ docs/
 1. **Research First**: Use `databricks-researcher` to find documentation, examples, and validate technical approaches
 2. **Environment Setup**: Use `environment-manager` to configure local development with databricks-connect and Unity Catalog
 3. **Define Requirements**: Use `product-manager` to create clear specifications and success criteria
-4. **Build & Test**: Use `ai-engineer` for implementation with comprehensive testing and evaluation
-5. **Deploy & Monitor**: Deploy to Databricks Model Serving with proper monitoring and governance
+4. **Data Pipeline**: Use `data-engineer` to build data infrastructure, ETL/ELT pipelines, and feature engineering
+5. **Build & Test**: Use `ai-engineer` for AI/ML implementation with comprehensive testing and evaluation
+6. **Deploy & Monitor**: Deploy to Databricks Model Serving with proper monitoring and governance
 
 ### Quality Standards
 - **Local Development**: Always develop and test locally before deploying to production
