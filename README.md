@@ -18,6 +18,7 @@ The template includes specialized Claude agents for different development roles:
 - **🔬 databricks-researcher**: Documentation and API research specialist - use proactively to find relevant documentation and best practices
 - **⚙️ environment-manager**: Local IDE and Databricks environment setup with databricks-connect and Unity Catalog integration  
 - **🧠 ai-engineer**: Custom GenAI model and application development using Mosaic AI Agent Framework, RAG systems, and LangGraph
+- **🔧 data-engineer**: Data engineering specialist - builds production-grade pipelines using Spark, SQL, Delta Lake, and Unity Catalog
 - **📋 product-manager**: Requirements gathering, PRD creation, and feature prioritization for AI products
 
 ## ✨ Features
@@ -47,6 +48,7 @@ databricks-claude-code-ai-engineering/
 ├── .claude/                           # Claude AI agent configurations
 │   ├── agents/                        
 │   │   ├── ai-engineer.md            # AI engineering specialist agent
+│   │   ├── data-engineer.md          # Data engineering specialist agent
 │   │   ├── databricks-researcher.md   # Research and documentation agent
 │   │   ├── environment-manager.md     # Setup and configuration agent
 │   │   └── product-manager.md         # Product management agent
@@ -129,17 +131,22 @@ python scripts/test_local_connection.py
 
 **New Project Setup:**
 ```
-databricks-researcher → environment-manager → ai-engineer → product-manager
+databricks-researcher → environment-manager → data-engineer → ai-engineer → product-manager
 ```
 
 **Feature Development:**
 ```
-databricks-researcher → product-manager → ai-engineer → testing → deployment
+databricks-researcher → product-manager → data-engineer → ai-engineer → testing → deployment
+```
+
+**Data Pipeline Development:**
+```
+databricks-researcher → data-engineer → (optimize & monitor) → ai-engineer (consume data)
 ```
 
 **Troubleshooting:**
 ```
-databricks-researcher → environment-manager → ai-engineer (debug & fix)
+databricks-researcher → environment-manager → data-engineer/ai-engineer (debug & fix)
 ```
 
 ### Local Development
