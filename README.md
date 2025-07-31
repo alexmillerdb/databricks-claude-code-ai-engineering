@@ -157,10 +157,12 @@ databricks-researcher → environment-manager → ai-engineer (debug & fix)
 - **[MLflow Chat Agent](docs/ai-examples/mlflow_chat_agent.py)**: Conversational AI with MLflow integration
 - **[MLflow PyFunc Deployment](docs/ai-examples/mlflow_pyfunc_log_and_deploy_agent.py)**: Model packaging and deployment
 - **[MLflow Workflows](docs/ai-examples/mlflow-workflows.md)**: Complete MLflow lifecycle examples
+- **[Vector Search Guide](docs/ai-examples/vector-search-guide.md)** & **[Examples](docs/ai-examples/vector_search_example.py)**: RAG with Databricks Vector Search
 
 ### Development Tools
 - **[Connection Testing](scripts/test_comprehensive_connection.py)**: Validate Databricks connectivity
-- **[Agent Tools Reference](docs/ai-examples/agent-tools.md)**: Unity Catalog and MCP integration
+- **[Unity Catalog Tools](docs/ai-examples/uc_tools_example.py)**: Complete UC function tools implementation
+- **[Agent Tools Reference](docs/ai-examples/agent-tools.md)**: Unity Catalog and MCP integration guide
 
 ## 🔒 Security
 
