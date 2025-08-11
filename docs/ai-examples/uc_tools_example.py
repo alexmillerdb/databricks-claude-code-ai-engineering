@@ -192,13 +192,77 @@ def create_complete_agent_example():
         return None
 
 # =============================================================================
-# SQL FUNCTION EXAMPLES
+# SQL FUNCTION CREATION WITH UC AI CLIENT
 # =============================================================================
+
+def create_sql_function_examples():
+    """
+    Demonstrates creating SQL functions using the Unity Catalog AI client.
+    This is the recommended approach for data query functions in agents.
+    """
+    print("=== Creating SQL Functions with UC AI Client ===")
+    
+    try:
+        # Example 1: Table query function
+        query_function_sql = f"""
+CREATE OR REPLACE FUNCTION {CATALOG}.{SCHEMA}.query_table_with_filter(
+    table_name STRING COMMENT 'Full table name (catalog.schema.table)',
+    filter_condition STRING COMMENT 'SQL WHERE clause condition', 
+    row_limit INT COMMENT 'Maximum rows to return'
+)
+RETURNS STRING
+COMMENT 'Query a Unity Catalog table with filtering and return JSON result'
+RETURN (
+    SELECT TO_JSON(COLLECT_LIST(STRUCT(*))) 
+    FROM (
+        SELECT * FROM identifier(table_name) 
+        WHERE CASE 
+            WHEN filter_condition = '1=1' THEN TRUE
+            ELSE eval(filter_condition)
+        END
+        LIMIT row_limit
+    )
+);"""
+        
+        client.create_function(sql_function_body=query_function_sql)
+        print(f"✅ Created SQL function: {CATALOG}.{SCHEMA}.query_table_with_filter")
+        
+        # Example 2: Table statistics function  
+        stats_function_sql = f"""
+CREATE OR REPLACE FUNCTION {CATALOG}.{SCHEMA}.get_table_statistics(
+    table_name STRING COMMENT 'Full table name to analyze'
+)
+RETURNS STRING
+COMMENT 'Get comprehensive statistics about a Unity Catalog table'
+RETURN (
+    SELECT TO_JSON(
+        STRUCT(
+            COUNT(*) as row_count,
+            SIZE(ARRAY_DISTINCT(FLATTEN(ARRAY(STRUCT(*))))) as column_count,
+            ARRAY_DISTINCT(TRANSFORM(
+                SEQUENCE(0, SIZE(ARRAY(STRUCT(*))) - 1),
+                i -> ELEMENT_AT(ARRAY(STRUCT(*)), i + 1)
+            )) as sample_data
+        )
+    )
+    FROM identifier(table_name)
+    LIMIT 1000
+);"""
+        
+        client.create_function(sql_function_body=stats_function_sql)
+        print(f"✅ Created SQL function: {CATALOG}.{SCHEMA}.get_table_statistics")
+        
+        return [f"{CATALOG}.{SCHEMA}.query_table_with_filter", 
+                f"{CATALOG}.{SCHEMA}.get_table_statistics"]
+        
+    except Exception as e:
+        print(f"❌ Error creating SQL functions: {e}")
+        return []
 
 def sql_function_examples():
     """
     Provides examples of SQL functions that can be created in Unity Catalog.
-    These should be executed in Databricks SQL cells or notebooks.
+    These can be executed in Databricks SQL cells or via the UC AI client.
     """
     print("=== SQL Function Examples ===")
     
@@ -429,16 +493,19 @@ if __name__ == "__main__":
             # 3. Create complete agent (commented out to avoid API calls during testing)
             # agent = create_complete_agent_example()
         
-        # 4. Display SQL examples
+        # 4. Create SQL functions using UC AI client
+        sql_functions = create_sql_function_examples()
+        
+        # 5. Display additional SQL examples
         sql_function_examples()
         
-        # 5. Show best practices
+        # 6. Show best practices
         best_practices_guide()
         
-        # 6. Show troubleshooting guide
+        # 7. Show troubleshooting guide
         troubleshooting_guide()
         
-        # 7. Show additional resources
+        # 8. Show additional resources
         additional_resources()
         
     except Exception as e:

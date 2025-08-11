@@ -110,6 +110,57 @@ CREATE SCHEMA IF NOT EXISTS uc_catalog.uc_schema
 COMMENT 'Development environment for AI agents';
 ```
 
+## Integrate with Notebooks or locally in IDE
+
+```python
+import mlflow
+from dotenv import load_dotenv
+import os
+
+# Test local environment setup
+try:    
+    # Load environment variables for local testing
+    load_dotenv()
+    
+    # Check if we're in local development mode
+    if os.getenv('DATABRICKS_TOKEN') and os.getenv('DATABRICKS_HOST'):
+        print("🏠 Local Development Mode Detected")
+        print("=" * 50)
+        print(f"✅ Databricks Host: {os.getenv('DATABRICKS_HOST')}")
+        print(f"✅ MLflow Tracking URI: {os.getenv('MLFLOW_TRACKING_URI', 'databricks')}")
+
+        # configure MLflow tracking
+        mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+        mlflow.set_experiment(experiment_id=os.getenv("MLFLOW_EXPERIMENT_ID"))
+        
+        if os.getenv('MLFLOW_EXPERIMENT_ID'):
+            print(f"✅ MLflow Experiment ID: {os.getenv('MLFLOW_EXPERIMENT_ID')}")
+        else:
+            print("ℹ️  MLflow Experiment ID: Not set (will use default)")
+            
+        if os.getenv('MLFLOW_REGISTRY_URI'):
+            print(f"✅ MLflow Registry URI: {os.getenv('MLFLOW_REGISTRY_URI')}")
+        
+        print("\n🎯 Ready for local development!")
+        
+    else:
+        print("☁️  Databricks Environment Mode")
+        print("=" * 40)
+        print("ℹ️  Using Databricks workspace credentials")
+        print("ℹ️  No additional setup required")
+
+        # configure MLflow tracking
+        user_name = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
+        mlflow.set_tracking_uri("databricks")
+        experiment_info = mlflow.set_experiment(f"/Users/{user_name}/mfg-epl-agent")
+        print(f"MLflow Experiment Info: {experiment_info}")
+        
+except ImportError:
+    print("ℹ️  python-dotenv not available - using Databricks environment")
+except Exception as e:
+    print(f"⚠️  Environment setup issue: {e}")
+```
+
 ## Common Issues & Solutions
 
 ### Issue: "Cannot connect to cluster"

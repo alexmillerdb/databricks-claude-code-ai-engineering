@@ -3,7 +3,10 @@
     "allow": [
       "Bash(ls:*)",
       "Bash(mkdir:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "WebFetch(domain:docs.databricks.com)",
+      "WebFetch(domain:docs.databricks.com)",
+      "WebFetch(domain:docs.unitycatalog.io)"
     ],
     "deny": []
   }
